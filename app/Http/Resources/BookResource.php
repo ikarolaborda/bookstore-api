@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,8 +13,21 @@ class BookResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray($request): array
     {
-        return parent::toArray($request);
+        return [
+            'title' => $this->name,
+            'ISBN' => $this->ISBN,
+            'price' => $this->formatBrazilianCurrency($this->value),
+            'creation date' => Carbon::parse($this->created_at)->diffForHumans(),
+            'last update' => Carbon::parse($this->updated_at)->diffForHumans(),
+
+
+        ];
+    }
+
+    protected function formatBrazilianCurrency($value): string | float
+    {
+        return 'R$ ' . number_format($value, 2, ',', '.');
     }
 }
