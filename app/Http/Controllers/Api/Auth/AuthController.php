@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Contracts\UserServiceInterface;
+use App\Helpers\UserRoleHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
@@ -21,7 +22,7 @@ class AuthController extends Controller
     {
         if (isset($data['role']) && $data['role'] === 'admin') {
             $user = $request->user();
-            if (!$user || $user->role !== 'admin') {
+            if (!UserRoleHelper::canCreateAdmin($request)) {
                 return response()->json(['message' => 'Only admin users can create another admin user'], 403);
             }
         }

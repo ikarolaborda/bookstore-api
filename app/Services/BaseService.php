@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\BaseRepositoryInterface;
 use App\Contracts\BaseServiceInterface;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +13,14 @@ abstract class BaseService implements BaseServiceInterface
 {
 
     public function __construct(
-        protected BaseRepository $repository
+        protected BaseRepositoryInterface $repository
     )
     {
+    }
+
+    public function create(array $attributes): Model | array
+    {
+        return $this->repository->create($attributes);
     }
 
     public function getAll(): AnonymousResourceCollection | Collection | array
