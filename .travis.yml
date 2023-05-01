@@ -1,0 +1,16 @@
+language: php
+php:
+  - '8.2'
+
+cache:
+  directories:
+    - $HOME/.composer/cache # Cache Composer packages for faster builds
+
+before_install:
+  - phpenv config-rm xdebug.ini || true # Disable XDebug for faster builds
+
+install:
+  - composer install --no-interaction # Install dependencies
+
+script:
+  - ./vendor/bin/phpunit # Run tests with PHPUnit, assuming you have PHPUnit configured
