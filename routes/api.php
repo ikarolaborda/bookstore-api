@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\UserController;
@@ -22,13 +23,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(
     function () {
-        Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
-            Route::post('login', [UserController::class, 'login']);
-            Route::post('register', [UserController::class, 'register']);
-            Route::post('logout', [UserController::class, 'logout']);
-            Route::post('refresh', [UserController::class, 'refresh']);
-            Route::get('user-profile', [UserController::class, 'userProfile']);
-        });
+        Route::prefix('auth')->group(
+            function () {
+                Route::post('register', [AuthController::class, 'register']);
+                Route::post('login', [AuthController::class, 'login']);
+
+                Route::group(['middleware' => 'jwt.auth'], function () {
+                    Route::post('refresh', [AuthController::class, 'refresh']);
+                    Route::post('logout', [AuthController::class, 'logout']);
+                });
+            }
+        );
 
         Route::middleware(['auth:api'])->group(function () {
             Route::apiResource('users', UserController::class);
