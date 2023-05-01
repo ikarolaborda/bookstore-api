@@ -1,0 +1,285 @@
+openapi: 3.0.0
+info:
+  title: Bookstore Management API - SAS Backend Dev Test
+  description: API para gerenciamento de Utilizadores e Livros, aderente aos princípios SOLID.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost/api/v1'
+paths:
+  /books:
+    get:
+      summary: Recuperar todos os Livros
+      operationId: getAllBooks
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: Operaçao realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Registrar um novo Livro
+      operationId: createBook
+      security:
+        - BearerAuth: [ ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Livro registrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+  /books/{id}:
+    get:
+      summary: Recuperar Livro por ID
+      operationId: getBookById
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operaçao realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    put:
+      summary: Atualizar Livro por ID
+      operationId: updateBook
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '202':
+          description: Livro atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    delete:
+      summary: Excluir Livro por ID
+      operationId: deleteBook
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Livro excluído com sucesso
+  /users:
+    get:
+      summary: Recuperar todos os utilizadores
+      operationId: getAllUsers
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: Operaçao realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Registrar um novo utilizador
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Utilizador registrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/{id}:
+    get:
+      summary: Recuperar utilizador por ID
+      operationId: getUserById
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Operaçao realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      summary: Atualizar utilizador por ID
+      operationId: updateUser
+      security:
+        - BearerAuth: [ ]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '202':
+          description: Utilizador atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Excluir utilizador por ID
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Utilizador excluído com sucesso
+  /auth/register:
+    post:
+      summary: Registrar um novo utilizador (sem autenticação)
+      operationId: authRegister
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Utilizador registrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /auth/login:
+    post:
+      summary: Efectuar login
+      operationId: authLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+      responses:
+        '200':
+          description: Login efetuado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /auth/logout:
+    get:
+      summary: Efectuar logout
+      operationId: authLogout
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: Logout efetuado com sucesso
+  /auth/refresh:
+    get:
+      summary: Atualizar token do utilizador
+      operationId: authRefresh
+      security:
+        - BearerAuth: [ ]
+      responses:
+        '200':
+          description: Token atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        ISBN:
+          type: string
+        value:
+          type: string
+          format: brazilian_currency
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        role:
+          type: string
+          enum:
+            - user
+            - admin
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

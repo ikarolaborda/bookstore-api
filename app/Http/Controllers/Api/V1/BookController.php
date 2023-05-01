@@ -27,12 +27,12 @@ class BookController extends Controller
 
     public function store(StoreBookRequest $request): JsonResponse
     {
-        return response()->json(['data' => $this->bookService->create($request->validated())],201);
+        return response()->json(['data' => BookResource::make($this->bookService->create($request->validated()))],201);
     }
 
     public function show(int $id): JsonResponse
     {
-        return response()->json(['data' => BookResource::collection($this->bookService->getById($id))],200);
+        return response()->json(['data' => BookResource::make($this->bookService->getById($id))],200);
     }
 
     public function update(UpdateBookRequest $request, int $id): JsonResponse

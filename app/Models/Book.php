@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'ISBN',
+        'value',
+    ];
+
+    protected $casts = [
+        'value' => 'float',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

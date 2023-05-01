@@ -34,7 +34,7 @@ class UserController extends Controller
             }
         }
 
-        return response()->json(['data' => $this->userService->register($request->validated())],201);
+        return response()->json(['data' => UserResource::make($this->userService->register($request->validated()))],201);
     }
 
     public function show(int $id): JsonResponse
@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, int $id): JsonResponse
     {
-        return response()->json(['data' => $this->userService->update($id, $request->validated())],202);
+        return response()->json(['data' => UserResource::make($this->userService->update($id, $request->validated()))],202);
     }
 
     public function destroy(int $id): JsonResponse
