@@ -1,5 +1,7 @@
 # Book Store Management API (SAS Backend DEV Test)
 
+[![Build Status](https://app.travis-ci.com/ikarolaborda/bookstore-api.svg?branch=master)](https://app.travis-ci.com/ikarolaborda/bookstore-api)
+
 This is a simple API for managing a book store. For dev capabilities testing purposes for SAS company. It was developed using the following technologies:
 * [PHP 8.2](https://php.com)
 * [Laravel 10.9](https://laravel.com/)
