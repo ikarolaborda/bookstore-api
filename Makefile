@@ -12,7 +12,7 @@ help:
 	" make mig: Rodar as migrations e seeders manualmente \n"
 
 build:
-	cp .env.example .env; export COMPOSE_FILE=docker-compose.yml; docker-compose --env-file .env up -d --build
+	cp .env.example .env; touch database/database.sqlite; export COMPOSE_FILE=docker-compose.yml; docker-compose --env-file .env up -d --build
 
 dup:
 	export COMPOSE_FILE=docker-compose.yml; docker-compose up -d
