@@ -15,7 +15,7 @@ class UserService extends BaseService implements UserServiceInterface
 {
     public function __construct(
         protected UserRepositoryInterface $userRepository,
-        protected JWTAuth $jwtAuth
+        protected JWTAuth                 $jwtAuth
     )
     {
         parent::__construct($userRepository);
