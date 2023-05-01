@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Collection;
 
-interface UserServiceInterface
+interface UserServiceInterface extends BaseServiceInterface
 {
     public function register(array $attributes): array;
 
@@ -15,13 +15,5 @@ interface UserServiceInterface
     public function logout(): bool;
 
     public function refresh(): ?string;
-
-    public function getAll(): AnonymousResourceCollection | Collection | array;
-
-    public function getById(int $id): Model | array;
-
-    public function update(int $id, array $attributes): Model | array;
-
-    public function delete(int $id): void;
 
 }

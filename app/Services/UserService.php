@@ -11,13 +11,14 @@ use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWTAuth;
 
-class UserService implements UserServiceInterface
+class UserService extends BaseService implements UserServiceInterface
 {
     public function __construct(
         protected UserRepositoryInterface $userRepository,
         protected JWTAuth $jwtAuth
     )
     {
+        parent::__construct($userRepository);
     }
 
     public function register(array $attributes): array
@@ -61,25 +62,5 @@ class UserService implements UserServiceInterface
         }
 
         return $newToken;
-    }
-
-    public function getAll(): AnonymousResourceCollection | Collection | array
-    {
-        return $this->userRepository->all();
-    }
-
-    public function getById(int $id): Model
-    {
-        return $this->userRepository->find($id);
-    }
-
-    public function update(int $id, array $attributes): array
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function delete(int $id): void
-    {
-        // TODO: Implement delete() method.
     }
 }
