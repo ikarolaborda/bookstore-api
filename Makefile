@@ -40,3 +40,6 @@ mig:
 
 test:
 	docker exec -it php php artisan test
+
+jwt:
+	docker exec -it php php artisan jwt:secret
