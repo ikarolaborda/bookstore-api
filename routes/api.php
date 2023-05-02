@@ -40,4 +40,4 @@ Route::prefix('v1')->group(
             Route::apiResource('books', BookController::class);
         });
     }
-);
+)->middleware('json');

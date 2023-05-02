@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'admin' => \App\Http\Middleware\AdminRoleMiddleware::class,
+        'json' => \App\Http\Middleware\EnforceJsonResponse::class,
     ];
 }

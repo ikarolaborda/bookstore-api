@@ -22,4 +22,12 @@ class StoreBookRequest extends FormRequest
     {
         return true;
     }
+
+    public function messages()
+    {
+        return [
+            'ISBN.unique' => 'Livro com ISBN Informado já existe!',
+
+        ];
+    }
 }
