@@ -8,25 +8,25 @@ env:
     - DOCKER_COMPOSE_VERSION=1.29.2
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  - sudo rm /usr/local/bin/docker-compose
+  - apt-get update
+  - apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  - rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - sudo docker-compose --version
+  - mv docker-compose /usr/local/bin
+  - docker-compose --version
 
 install:
   - cp .env.example .env
-  - sudo docker-compose build
-  - sudo docker-compose up -d
+  - docker-compose build
+  - docker-compose up -d
 
 script:
-  - sudo docker-compose exec -T php composer install
-  - sudo docker-compose exec -T php composer test
+  - docker-compose exec -T php composer install
+  - docker-compose exec -T php composer test
 
 after_script:
-  - sudo docker-compose down
+  - docker-compose down
 
 notifications:
   email: false
