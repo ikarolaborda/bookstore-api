@@ -26,7 +26,6 @@ install:
 script:
   - docker-compose exec -T php composer install
   - docker-compose exec -T php php artisan jwt:secret
-  - docker-compose exec -T php php artisan migrate:fresh --seed
   - docker-compose exec -T php php artisan test
 
 after_script:
