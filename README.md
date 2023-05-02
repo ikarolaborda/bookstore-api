@@ -12,7 +12,7 @@ This is a simple API for managing a book store. For dev capabilities testing pur
 
 ## Installation
 
-Warning: To properly run the application, you must have installed [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/).
+Warning: To properly run the application, you must have installed [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
 
 1 - In order to setup the project, clone this repository and run the commands below:
 
