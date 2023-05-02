@@ -16,8 +16,6 @@ WORKDIR /var/www/book-api
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN touch database/database.sqlite
-
 COPY --chmod=755 entrypoint.sh /usr/local/bin/
 
 ENTRYPOINT ["entrypoint.sh"]

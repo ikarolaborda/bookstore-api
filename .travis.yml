@@ -19,6 +19,7 @@ before_install:
 
 install:
   - cp .env.example .env
+  - touch database/database.sqlite
   - docker-compose build
   - docker-compose up -d
 
